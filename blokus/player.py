@@ -10,12 +10,25 @@ from piece import Piece
 
 class Player(object):
     """
-    this class describes the player/artificial intelligence. The input parameters describe
-    the parameters necessary to build the algorithm
+    this class describes the player/artificial intelligence that
+    controls a given set of pieces of a single color. The input 
+    parameters describe the AI parameters, and the playerID.
     """
 
     def __init__(self, playerID, player_type='human',
                  strategy='random', weights=[5., 1., 1, .5, 5, 10]):
+        """
+        inputs:
+
+        playerID: (int 0 - 3) this is the ID that corresponds to
+            color of the player
+        player_type: (string - either 'ai' or 'human') indicates
+            whether this player is controlled by a human or the computer.
+        strategy: (string - either 'random', 'markov rule', 'third'
+            or 'dual rule') specifies the type of strategy to use.
+        weights: (list of length 6 of floats) specifies the linear
+            weighting for each of the heuristics to use for the AI.
+        """
         colors = ['blue', 'red', 'green', 'yellow']
         self.playerID = playerID
         self.player_type = player_type
@@ -36,6 +49,10 @@ class Player(object):
                 # choose one move at random
                 move = moves[np.random.randint(0, len(moves))]
             elif self.strategy == 'markov rule':
+                # choose the optimum next move
+                # but add rounding to the move_metric, and
+                # then randomly select amongst the degenerate
+                # best moves.
                 active_rules = [
                     self.rule_1,
                     self.rule_2,

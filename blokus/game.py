@@ -4,6 +4,19 @@ import copy
 from game_methods import find_corners
 
 class Game(object):
+    """
+	This object keeps track of the Blokus game:
+
+	methods:
+	increment_turn: increments the playerID, and the round counter.
+	find_available_corners: for the specified playerID, find corners
+		that represent valid connection points for a piece.
+	check_if_is_allowed: given a piece and a piece position on the board
+		determine if the move is allowed or not. This function contains
+		most of the rules of Blokus
+	place_piece: given a piece and a valid position, place the piece
+		on the current game board, and increment the turn.
+    """
 
     def __init__(self, dimension=20, num_players=4):
         self.board = np.zeros([dimension, dimension])

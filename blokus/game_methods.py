@@ -118,10 +118,11 @@ def find_available_moves(game, pieces, playerID=-1, num=-1):
 
 def determine_available_point_change(moves, game, pieces):
     """
-    this is a function that is necessary for rules 2 and 4 which rely on
-    corner point expansion or blokus-ing
+    this is a function that is necessary for heuristic AI 
+    rules 2 and 4 which rely on corner point expansion 
+    or blocking of available corners.
     """
-    # cases=[(1,1),(1,-1),(-1,1),(-1,-1)]
+
     # find the corners in the starting point:
     corners = []
     number_c = []
@@ -241,7 +242,7 @@ def find_bridge_instances(board, playerID, position=-1, size=-1):
 
 def find_edge_sharing(board, playerID, position=-1, size=-1):
     """
-    given a board, count the number of instances of  edge sharing between our
+    given a board, count the number of instances of edge sharing between our
     pieces and other pieces
     """
     patterns = [[[-1, -2]], [[-1], [-2]], [[-2, -1]], [[-2], [-1]]]

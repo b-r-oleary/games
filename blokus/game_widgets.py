@@ -55,6 +55,26 @@ class Block(Widget):
 
 
 class BlokusPiece(Widget):
+    """
+    This object defines a Blokus piece widget
+    which includes as fields a "Piece" object
+    that includes the piece geometry, and a list
+    of "Block" widgets that instantiates that
+    geometry on the board.
+
+    methods:
+    update_blocks: move the blocks that make up the piece
+        so that they have the right relative positions.
+    update: Move the piece. If the piece is grabbed, move with
+        the cursor. If the piece is not grabbed, go to the setpoint
+        if it is not already there. The setpoint can be either a home
+        or a local grid point.
+    on_touch_down: Identifies when we are grabbing the piece
+    on_touch_up: Identifies when we release a piece.
+    on_touch_move: Identifies when we are dragging a piece.
+    flip: Flips piece by calling the Piece.flip method
+    rotate: Rotates piece by calling the Piece.rotate method.
+    """
     pieceID = NumericProperty(0)
     playerID = NumericProperty(0)
     rotation = NumericProperty(0)
@@ -67,7 +87,6 @@ class BlokusPiece(Widget):
                  **kwargs):
         super(BlokusPiece, self).__init__(**kwargs)
 
-        # self.game = Game()
         self.piece = Piece(
             self.pieceID,
             self.playerID,
@@ -184,10 +203,22 @@ class BlokusPiece(Widget):
 
 
 class HelperDot(Widget):
+    """
+    This is a little star widget
+    that shows you the available corners
+    at which you can place a piece if it
+    is your turn. These only show up when you
+    need help.
+    """
     pass
 
 
 class TransformBubble(Bubble):
+    """
+    This is a floating menu that enables human players
+    to manipulate the orientation of a piece, and to commit
+    a move.
+    """
     rotate_cw = ObjectProperty(None)
     rotate_ccw = ObjectProperty(None)
     flip = ObjectProperty(None)
@@ -196,6 +227,13 @@ class TransformBubble(Bubble):
 
 
 class GameBoard(Widget):
+    """
+    This is the widget that represents the GameBoard.
+    This does not contain information about the game,
+    but rather just contains an image of the GameBoard
+    and also contains all of the piece widgets that have
+    already been placed on the board.
+    """
 
     def place_piece(self, piece, position,
                     d, corner_offset):
@@ -212,6 +250,11 @@ class GameBoard(Widget):
 
 
 class FlybyLabel(Widget):
+    """
+    This is a widget that flies onto the screen when either
+    you attempt an illegal move (which says "really?"), or when
+    the game ends (which says "game over")
+    """
     instance = StringProperty('really')
 
     def __init__(self, d=0, **kwargs):

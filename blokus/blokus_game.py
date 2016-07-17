@@ -54,7 +54,35 @@ class BlokusApp(App):
 
 class BlokusGame(Widget):
     """
-    this is the primary widget that controls the game flow
+    this is the primary widget that controls the game flow.
+
+    methods:
+    rotate_initial_configuration: given an array of starting
+        positions for the pieces for playerID=0, rotate the 
+        starting positions to make them applicable for playerID != 0
+
+    update: on each time step, we need to update the positions of the
+        pieces on the board. For example, piece has to move with the
+        cursor when I grab it, and must snap to grid when I release it.
+        When I am holding a piece, the menu bar has to move with the
+        piece. If the timers for the helper dots expire, they must disappear, etc...
+    
+    flip_active_piece: performs a flip operation from menu bar on a piece
+    rotate_ccw_active_piece: performs a counter clockwise rotation
+        operation from the menu bar on the active piece
+    rotate_cw_active_piece: performs a clockwise rotation
+        operation from the menu bar on the active piece
+    close_instructions: removes the menu bar when requested by the
+        menu, or after a time expiration
+    add_helpers: find valid connection corners for the current playerID
+        and add stars to the board indicating where they can place pieces
+    remove_helpers: remove the helpers from the board
+    add_piece: after committing to making a move, fix it to the board
+        permanantly. does not allow invalid moves.
+    on_touch_up: after releasing a piece, if it is on the board,
+        but it is not your turn, it will return to its previous position
+        off the board. If it is off the board, it will accept the new
+        location off the board.
     """
 
     # initialize the game properties:
@@ -466,8 +494,8 @@ class BlokusGame(Widget):
                     self.game.increment_turn()
                     counter += 1
                     for i in range(len(self.pieces)):
-                        if self.pieces[
-                                i].playerID == self.game.current_playerID:
+                        if ((self.pieces[i].playerID == self.game.current_playerID)  or
+                            (self.settings.show_all and self.settings.screen_mode == 'all_players')):
                             self.pieces[i].setpoint = self.pieces[i].home
                         else:
                             self.pieces[i].setpoint = self.pieces[i].wait
