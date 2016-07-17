@@ -1,0 +1,1 @@
+from blokus_game import BlokusApp

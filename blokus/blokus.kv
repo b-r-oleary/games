@@ -1,0 +1,68 @@
+#:kivy 1.8.9
+
+<GameBoard>:
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size   
+            source: './blokus/images/board.png'
+
+<TransformBubble>
+    rotate_cw: rotate_cw
+    rotate_ccw: rotate_ccw
+    flip: flip
+    close: close
+    commit: commit
+
+    size: (120, 50)
+
+    BubbleButton:
+        id: commit
+        Image:
+            source: './blokus/images/commit.png'
+            center_y: self.parent.center_y
+            center_x: self.parent.center_x
+            size: self.parent.width/(1.5), self.parent.width/(1.5)
+
+    BubbleButton:
+        id: rotate_cw
+        Image:
+            source: './blokus/images/rotate_cw.png'
+            center_y: self.parent.center_y
+            center_x: self.parent.center_x
+            size: self.parent.width/(1.5), self.parent.width/(1.5)
+    BubbleButton:
+        id: flip
+        Image:
+            source: './blokus/images/flip.png'
+            center_y: self.parent.center_y
+            center_x: self.parent.center_x
+            size: self.parent.width/(1.5), self.parent.width/(1.5)
+    BubbleButton:
+        id: rotate_ccw
+        Image:
+            source: './blokus/images/rotate_ccw.png'
+            center_y: self.parent.center_y
+            center_x: self.parent.center_x
+            size: self.parent.width/(1.5), self.parent.width/(1.5)
+
+    BubbleButton:
+        id: close
+        Image:
+            source: './blokus/images/close.png'
+            center_y: self.parent.center_y
+            center_x: self.parent.center_x
+            size: self.parent.width/(1.5), self.parent.width/(1.5)
+
+<HelperDot>:
+    canvas:
+        Rectangle:
+            source: './blokus/images/helper.png'
+            pos: self.pos
+            size: self.size
+
+<BlokusGame>:
+    board: game_board
+    
+    GameBoard:
+        id: game_board
